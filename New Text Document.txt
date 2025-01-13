@@ -1,0 +1,20 @@
+<?php
+$conn = new mysqli('localhost', 'root', '', 'video_db');
+if ($conn->connect_error) {
+    die('Connection failed: ' . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM videos";
+$result = $conn->query($sql);
+
+while ($row = $result->fetch_assoc()) {
+    echo "<div>";
+    echo "<h3>" . $row['name'] . "</h3>";
+    echo "<video width='320' height='240' controls>
+            <source src='" . $row['path'] . "' type='video/mp4'>
+          </video>";
+    echo "</div>";
+}
+
+$conn->close();
+?>
